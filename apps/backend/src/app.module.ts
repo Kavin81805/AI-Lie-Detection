@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { DatabaseModule } from "./database/database.module";
+import { ToolsModule } from "./tools/tools.module";
 import { HealthController } from "./health.controller";
 
 /**
@@ -14,7 +15,7 @@ import { HealthController } from "./health.controller";
       envFilePath: "../../.env",
     }),
     DatabaseModule,
-    // Phase 3: ToolsModule
+    ToolsModule,
     // Phase 4: VisionModule
     // Phase 5: AgentModule
     // Phase 6: ArticlesModule, AnalysisModule
