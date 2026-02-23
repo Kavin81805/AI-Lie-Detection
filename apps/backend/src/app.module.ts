@@ -3,6 +3,7 @@ import { ConfigModule } from "@nestjs/config";
 import { DatabaseModule } from "./database/database.module";
 import { ToolsModule } from "./tools/tools.module";
 import { VisionModule } from "./vision/vision.module";
+import { AgentModule } from "./agent/agent.module";
 import { HealthController } from "./health.controller";
 
 /**
@@ -18,7 +19,7 @@ import { HealthController } from "./health.controller";
     DatabaseModule,
     ToolsModule,
     VisionModule,
-    // Phase 5: AgentModule
+    AgentModule,
     // Phase 6: ArticlesModule, AnalysisModule
   ],
   controllers: [HealthController],
