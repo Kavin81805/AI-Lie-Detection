@@ -4,6 +4,8 @@ import { DatabaseModule } from "./database/database.module";
 import { ToolsModule } from "./tools/tools.module";
 import { VisionModule } from "./vision/vision.module";
 import { AgentModule } from "./agent/agent.module";
+import { ArticlesModule } from "./articles/articles.module";
+import { AnalysisModule } from "./analysis/analysis.module";
 import { HealthController } from "./health.controller";
 
 /**
@@ -20,7 +22,8 @@ import { HealthController } from "./health.controller";
     ToolsModule,
     VisionModule,
     AgentModule,
-    // Phase 6: ArticlesModule, AnalysisModule
+    ArticlesModule,
+    AnalysisModule,
   ],
   controllers: [HealthController],
 })
