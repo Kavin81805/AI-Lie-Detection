@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "start:dev": "tsc --watch & node --watch dist/main.js",
+    "dev": "tsc --watch & node --watch dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -10,7 +14,28 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@nestjs/axios": "^4.0.1",
+    "@nestjs/common": "^11.1.14",
+    "@nestjs/config": "^4.0.3",
+    "@nestjs/core": "^11.1.14",
+    "@nestjs/swagger": "^11.2.6",
     "@prisma/client": "^7.4.1",
-    "prisma": "^7.4.1"
+    "@types/multer": "^2.0.0",
+    "@types/uuid": "^10.0.0",
+    "axios": "^1.13.5",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.3",
+    "multer": "^2.0.2",
+    "prisma": "^7.4.1",
+    "sharp": "^0.34.5",
+    "swagger-ui-express": "^5.0.1",
+    "tesseract.js": "^7.0.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.3.0",
+    "reflect-metadata": "^0.2.2",
+    "typescript": "^5.9.3"
   }
 }
