@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Article {
+  id         String     @id @default(cuid())
+  url        String?
+  text       String
+  title      String?
+  sourceType SourceType @default(TEXT)
+  createdAt  DateTime   @default(now())
+  analyses   Analysis[]
+}
+
+model Analysis {
+  id              String       @id @default(cuid())
+  articleId       String
+  article         Article      @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  analysisType    AnalysisType @default(TEXT)
+  verdict         Verdict
+  confidenceScore Float        @default(0)
+  explanation     String
+  processingMs    Int          @default(0)
+  imagePath       String?
+  personDetected  String?
+  personVerified  Boolean?
+  officialSources Json?
+  toolCalls       ToolCallLog[]
+  createdAt       DateTime     @default(now())
+}
+
+model ToolCallLog {
+  id         String   @id @default(cuid())
+  analysisId String
+  analysis   Analysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  toolName   String
+  input      Json
+  output     Json
+  durationMs Int
+  success    Boolean  @default(true)
+  errorMsg   String?
+  createdAt  DateTime @default(now())
+}
+
+enum Verdict {
+  REAL
+  FAKE
+  UNCERTAIN
+}
+
+enum SourceType {
+  TEXT
+  URL
+  IMAGE
+}
+
+enum AnalysisType {
+  TEXT
+  IMAGE_PERSON_VERIFY
+}
