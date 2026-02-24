@@ -34,7 +34,7 @@ export const AnalyzeTextPage: React.FC = () => {
 
   const isValid =
     inputMode === "text"
-      ? text.length >= 50
+      ? text.length > 0
       : url.length > 0 && url.startsWith("http");
 
   return (

@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Body, Param, Query } from "@nestjs/common";
+import { Controller, Post, Get, Body, Param, Query, UseInterceptors, UploadedFile } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { AnalysisService } from "./analysis.service";
 import { AnalyzeTextDto } from "./analysis.dto";
@@ -33,6 +34,30 @@ export class AnalysisController {
   })
   async analyzeText(@Body() dto: AnalyzeTextDto) {
     return this.analysis.analyzeText(dto);
+  }
+
+  /**
+   * Analyze image with OCR and vision model
+   * @param file Image file
+   * @param personHint Optional hint about who is in the image
+   * @returns Analysis ID
+   */
+  @Post("image")
+  @UseInterceptors(FileInterceptor("file"))
+  @ApiOperation({
+    summary: "Analyze image with OCR and vision",
+    description:
+      "Upload image for OCR extraction and person verification",
+  })
+  @ApiResponse({
+    status: 201,
+    description: "Image analysis started",
+  })
+  async analyzeImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Query("personHint") personHint?: string
+  ) {
+    return this.analysis.analyzeImage(file, personHint);
   }
 
   /**
