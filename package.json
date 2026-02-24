@@ -4,7 +4,9 @@
   "description": "A comprehensive project for AI-powered lie detection analysis.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"npm run dev --prefix apps/backend\" \"npm run dev --prefix apps/frontend\"",
+    "build": "npm run build --prefix apps/backend && npm run build --prefix apps/frontend",
+    "start:prod": "npm run start --prefix apps/backend"
   },
   "keywords": [],
   "author": "",
