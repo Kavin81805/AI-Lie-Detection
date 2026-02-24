@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from "@nestjs/common";
+import { Injectable, OnModuleInit, OnModuleDestroy } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 
 /**
@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
  * Handles database connection lifecycle.
  */
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit {
+export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   /**
    * Called when NestJS module initializes.
    * Establishes database connection.
@@ -21,5 +21,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
    */
   async onModuleDestroy(): Promise<void> {
     await this.$disconnect();
+    console.log("✅ Database disconnected");
   }
 }

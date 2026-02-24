@@ -1,3 +1,17 @@
+import * as dotenv from "dotenv";
+import * as path from "path";
+
+// Load environment variables from .env file (resolve from apps/backend directory)
+const envPath = path.resolve(process.cwd(), ".env");
+console.log("📝 Loading .env from:", envPath);
+const result = dotenv.config({ path: envPath });
+console.log("📝 .env loaded:", result.parsed ? Object.keys(result.parsed).length + " vars" : "not found");
+if (process.env.DATABASE_URL) {
+  console.log("✅ DATABASE_URL found:", process.env.DATABASE_URL.substring(0, 50) + "...");
+} else {
+  console.warn("⚠️  DATABASE_URL not set!");
+}
+
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
