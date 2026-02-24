@@ -29,7 +29,7 @@ export const AnalyzeTextPage = () => {
         }
     };
     const isValid = inputMode === "text"
-        ? text.length >= 50
+        ? text.length > 0
         : url.length > 0 && url.startsWith("http");
     return (_jsxs("div", { className: "p-8", children: [_jsx("h1", { className: "text-4xl font-bold text-slate-900 mb-2", children: "Analyze Text" }), _jsx("p", { className: "text-slate-600 mb-8", children: "Enter text or a URL to detect fake news" }), _jsxs("form", { onSubmit: handleSubmit, className: "max-w-2xl", children: [_jsxs("div", { className: "flex gap-2 mb-6", children: [_jsxs("button", { type: "button", onClick: () => setInputMode("text"), className: `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${inputMode === "text"
                                     ? "bg-blue-600 text-white"

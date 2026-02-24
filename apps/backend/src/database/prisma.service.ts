@@ -7,20 +7,35 @@ import { PrismaClient } from "@prisma/client";
  */
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+  private isConnected = false;
+
   /**
    * Called when NestJS module initializes.
    * Establishes database connection.
    */
   async onModuleInit(): Promise<void> {
-    await this.$connect();
-    console.log("✅ Database connected via Prisma");
+    try {
+      await this.$connect();
+      this.isConnected = true;
+      console.log("✅ Database connected via Prisma");
+    } catch (error) {
+      const isDev = process.env.NODE_ENV === "development";
+      if (isDev) {
+        console.warn("⚠️  Database connection failed (development mode - continuing anyway)");
+        console.error("Error:", error instanceof Error ? error.message : error);
+        this.isConnected = false;
+      } else {
+        throw error;
+      }
+    }
   }
 
   /**
    * Gracefully close database connection on application shutdown.
    */
   async onModuleDestroy(): Promise<void> {
-    await this.$disconnect();
-    console.log("✅ Database disconnected");
-  }
+    if (this.isConnected) {
+      await this.$disconnect();
+      console.log("✅ Database disconnected");
+    }  }
 }
