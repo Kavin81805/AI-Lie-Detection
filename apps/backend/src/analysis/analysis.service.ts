@@ -148,7 +148,9 @@ export class AnalysisService {
   async getStats() {
     const counts = await this.prisma.analysis.groupBy({
       by: ["verdict"],
-      _count: true,
+      _count: {
+        id: true,
+      },
     });
 
     const stats = {
@@ -159,10 +161,10 @@ export class AnalysisService {
     };
 
     for (const count of counts) {
-      stats.total += count._count;
-      if (count.verdict === "REAL") stats.real = count._count;
-      else if (count.verdict === "FAKE") stats.fake = count._count;
-      else if (count.verdict === "UNCERTAIN") stats.uncertain = count._count;
+      stats.total += count._count.id;
+      if (count.verdict === "REAL") stats.real = count._count.id;
+      else if (count.verdict === "FAKE") stats.fake = count._count.id;
+      else if (count.verdict === "UNCERTAIN") stats.uncertain = count._count.id;
     }
 
     return stats;

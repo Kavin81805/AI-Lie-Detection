@@ -79,25 +79,6 @@ export class AnalysisController {
   }
 
   /**
-   * Get recent analyses
-   * @param limit Number of recent analyses to return
-   * @returns List of recent analyses
-   */
-  @Get()
-  @ApiOperation({
-    summary: "Get recent analyses",
-    description: "Retrieve recent analyses for dashboard",
-  })
-  @ApiResponse({
-    status: 200,
-    description: "List of recent analyses",
-  })
-  async getRecent(@Query("limit") limit: string = "10") {
-    const limitNum = Math.min(parseInt(limit) || 10, 100);
-    return this.analysis.getRecent(limitNum);
-  }
-
-  /**
    * Get analysis statistics
    * @returns Verdict counts
    */
@@ -120,5 +101,24 @@ export class AnalysisController {
   })
   async getStats() {
     return this.analysis.getStats();
+  }
+
+  /**
+   * Get recent analyses
+   * @param limit Number of recent analyses to return
+   * @returns List of recent analyses
+   */
+  @Get()
+  @ApiOperation({
+    summary: "Get recent analyses",
+    description: "Retrieve recent analyses for dashboard",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "List of recent analyses",
+  })
+  async getRecent(@Query("limit") limit: string = "10") {
+    const limitNum = Math.min(parseInt(limit) || 10, 100);
+    return this.analysis.getRecent(limitNum);
   }
 }
